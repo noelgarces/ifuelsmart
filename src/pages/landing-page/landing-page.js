@@ -29,7 +29,7 @@ const LandingPage = () => {
               Fuel Purchase Optimization
             </h1>
             <p className="mb-6 text-lg text-gray-300 xl:text-xl lg:mb-8 xl:mb-10">
-              A system developed by transportation pros for transportation pros
+              A system developed for transportation pros by transportation pros
             </p>
             <div className="flex space-x-4">
               <input

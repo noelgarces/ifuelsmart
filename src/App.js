@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { lazy, Suspense } from "react";
-import "./app.css";
+import "./App.css";
 const AuthApp = lazy(() => import("auth-app"));
 const UnAuthApp = lazy(() => import("unauth-app"));
 
@@ -30,8 +30,6 @@ const App = () => {
       </div>
     );
   }
-
-  console.log(user);
 
   return (
     <Suspense
