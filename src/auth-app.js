@@ -1,12 +1,12 @@
 import DashboardLayout from "components/layouts/dashboard-layout";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 const AuthApp = () => {
   return (
     <DashboardLayout>
-      <Switch>
-        <Route path="/" component={() => <h1>Auth App</h1>} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<h1>Auth App</h1>} />
+      </Routes>
     </DashboardLayout>
   );
 };
