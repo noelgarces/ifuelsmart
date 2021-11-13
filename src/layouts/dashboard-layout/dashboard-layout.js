@@ -1,29 +1,40 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import Header from "./header";
 
 import logo from "assets/logo-white.png";
 
-const Dashboard = () => {
+const Dashboard = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        html, body, #root {
+          height: 100%;
+          width: 100%;
+        }
+        body {
+          overflow: hidden;
+        }
+      `,
+        }}
+      />
+      <div className="flex h-screen overflow-hidden">
+        {/* Sidebar */}
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-        <main>
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-            {/* Cards */}
-            <div className="grid grid-cols-12 gap-6"></div>
-          </div>
-        </main>
+        {/* Content area */}
+        <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          {/*  Site header */}
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          {/* Main */}
+          <main className="flex-grow px-4 sm:px-6 lg:px-8 py-8">{children}</main>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -124,7 +135,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                       d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
                     />
                   </svg>
-                  <span className="text-sm font-medium">Fuel Navigator</span>
+                  <span className="text-sm font-medium">Fuel Optimizer</span>
                 </div>
               </NavLink>
             </li>
@@ -296,33 +307,5 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
       </div>
     </div>
-  );
-};
-
-const Header = ({ sidebarOpen, setSidebarOpen }) => {
-  return (
-    <header className="sticky top-0 bg-white border-b border-gray-200 z-30">
-      <div className="px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 -mb-px">
-          {/* Header: Left side */}
-          <div className="flex">
-            {/* Hamburger button */}
-            <button
-              className="text-gray-500 hover:text-gray-600 lg:hidden"
-              aria-controls="sidebar"
-              aria-expanded={sidebarOpen}
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-            >
-              <span className="sr-only">Open sidebar</span>
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <rect x="4" y="5" width="16" height="2" />
-                <rect x="4" y="11" width="16" height="2" />
-                <rect x="4" y="17" width="16" height="2" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
   );
 };

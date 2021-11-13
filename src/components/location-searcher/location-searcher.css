@@ -1,0 +1,22 @@
+.geosuggest {
+  @apply relative;
+}
+
+.geosuggest__input-wrapper {
+  /* @apply mb-4; */
+}
+
+.geosuggest__input {
+  @apply block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none;
+}
+
+.geosuggest__suggests {
+  @apply bg-gray-100 border absolute top-full w-full mt-1 rounded shadow z-10;
+}
+.geosuggest__suggests--hidden {
+  @apply max-h-0 overflow-hidden border-0;
+}
+
+.geosuggest__item {
+  @apply px-3 py-1 border-b cursor-pointer text-gray-900 hover:bg-gray-200;
+}
