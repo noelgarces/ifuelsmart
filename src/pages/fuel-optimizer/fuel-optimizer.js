@@ -1,11 +1,20 @@
 import { getFuelPlan } from "api";
 import LocationSearcher from "components/location-searcher/location-searcher";
 import TractorSearcher from "components/tractor-searcher/tractor-searcher";
+import { useState } from "react";
 
 const FuelOptimzer = () => {
+  const [formData, setFormData] = useState({
+    origin: "",
+    destination: "",
+    via: "",
+    tractorFuel: "",
+    tractorFuelCapacity: "",
+  });
+
   const getFuelPlanHandler = async (e) => {
     e.preventDefault();
-    const data = await getFuelPlan({
+    const { data } = await getFuelPlan({
       customer: "sk1",
       origin: "El Paso, TX",
       destination: "New York, NY",
@@ -15,24 +24,46 @@ const FuelOptimzer = () => {
     });
     console.log(data);
   };
+
+  console.log(formData);
+
   return (
     <>
       {/* Cards */}
       <div className="grid grid-cols-12 gap-6 h-full">
         <div className="col-span-full sm:col-span-6 xl:col-span-3 bg-white shadow-lg rounded-sm border border-gray-200 h-full ">
-          <form className="px-5 py-5 flex flex-col h-full" onSubmit={getFuelPlanHandler}>
+          <form className="px-5 py-5 flex flex-col h-full" onSubmit={getFuelPlanHandler} autoComplete="off">
             {/* Tractor Searcher */}
-            <TractorSearcher onTractorSelect={(tractor) => console.log(tractor)} />
+            <TractorSearcher
+              onTractorSelect={(tractor) => {
+                console.log(tractor);
+                if (!tractor)
+                  return setFormData((prevState) => ({ ...prevState, tractorFuel: 0, tractorFuelCapacity: 0 }));
+                setFormData((prevState) => ({ ...prevState, tractorFuelCapacity: tractor.gal_capacity }));
+              }}
+            />
             {/* Tractor Fuel */}
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="tractorFuel">
                 Tractor Fuel
               </label>
-              <input type="range" min="1" max="8" placeholder="Enter origin location" className="block w-full" />
+              <input
+                type="range"
+                placeholder="Enter origin location"
+                min="1"
+                max="8"
+                onChange={(e) =>
+                  setFormData((prevState) => ({
+                    ...prevState,
+                    tractorFuel: (e.target.value / 8) * prevState.tractorFuelCapacity,
+                  }))
+                }
+                className="block w-full"
+                disabled={!formData.tractorFuelCapacity}
+              />
             </div>
             {/* Origin */}
             <LocationSearcher
-              initialValue={""}
               label="Origin"
               placeholder="Enter origin location"
               onSuggestSelect={(location) => console.log("HI", location)}
@@ -40,7 +71,6 @@ const FuelOptimzer = () => {
             {/* Destination */}
             <LocationSearcher
               label="Destination"
-              initialValue={""}
               placeholder="Enter destination location"
               onSuggestSelect={(location) => console.log("HI", location)}
             />

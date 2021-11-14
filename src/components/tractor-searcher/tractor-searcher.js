@@ -18,7 +18,7 @@ const TractorSearcher = ({ onTractorSelect }) => {
     setFilteredOptions(filteredOptions);
     setShowOptions(true);
     setUserInput(e.currentTarget.value);
-    if (!e.target.value) return onTractorSelect({});
+    if (!e.target.value) return onTractorSelect(null);
   };
 
   const handleClick = (option, e) => {
