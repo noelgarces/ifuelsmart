@@ -3,7 +3,7 @@ import "./location-searcher.css";
 
 const LocationSearcher = ({ label, placeholder, required, onSuggestSelect, initialValue }) => {
   return (
-    <div className="mb-4">
+    <div className="relative mb-4">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
         {label}
       </label>

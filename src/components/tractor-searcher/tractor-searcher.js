@@ -1,4 +1,3 @@
-import Input from "components/input/input";
 import { useTractors } from "contexts/tractors-context";
 import cn from "classnames";
 import { useState } from "react";
@@ -61,8 +60,17 @@ const TractorSearcher = ({ onTractorSelect }) => {
 
   return (
     <>
-      <div className="relative">
-        <Input label="Tractor" type="text" value={userInput} placeholder="Search Tractor" onChange={handleChange} />
+      <div className="relative mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+          Tractor
+        </label>
+        <input
+          type="text"
+          placeholder="Search Tractor"
+          className="block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none"
+          value={userInput}
+          onChange={handleChange}
+        />
         {optionList}
       </div>
     </>
