@@ -1,5 +1,6 @@
 import FuelOptimizerLayout from "layouts/fuel-optimizer-layout";
 import { useState } from "react";
+import FuelPlan from "./fuel-plan";
 import Form from "./form";
 
 const FuelOptimzer = () => {
@@ -10,7 +11,10 @@ const FuelOptimzer = () => {
   console.log(fuelPlan);
 
   return (
-    <FuelOptimizerLayout leftPanel={<Form setFuelPlanHandler={setFuelPlanHandler} />} map={<h1>Hello world</h1>} />
+    <FuelOptimizerLayout
+      leftPanel={!fuelPlan ? <Form setFuelPlanHandler={setFuelPlanHandler} /> : <FuelPlan />}
+      map={<h1>Hello world</h1>}
+    />
   );
 };
 
