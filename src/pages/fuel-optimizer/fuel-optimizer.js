@@ -12,7 +12,7 @@ const FuelOptimzer = () => {
 
   return (
     <FuelOptimizerLayout
-      leftPanel={!fuelPlan ? <Form setFuelPlanHandler={setFuelPlanHandler} /> : <FuelPlan />}
+      leftPanel={!fuelPlan ? <Form setFuelPlanHandler={setFuelPlanHandler} /> : <FuelPlan fuelPlan={fuelPlan} />}
       map={<h1>Hello world</h1>}
     />
   );

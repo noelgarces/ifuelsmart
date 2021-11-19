@@ -17,21 +17,23 @@ const Dashboard = ({ children }) => {
           width: 100%;
         }
         body {
-          overflow: hidden;
+
         }
       `,
         }}
       />
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex h-full">
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         {/* Content area */}
-        <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="relative flex flex-col flex-1 h-full">
           {/*  Site header */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* Main */}
-          <main className="flex-grow px-4 sm:px-6 lg:px-8 py-8">{children}</main>
+          <main className="px-4 sm:px-6 lg:px-8 py-8 relative" style={{ height: "calc(100% - 64px)" }}>
+            {children}
+          </main>
         </div>
       </div>
     </>
