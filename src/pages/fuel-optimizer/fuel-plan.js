@@ -1,11 +1,11 @@
 import { Tab } from "@headlessui/react";
+import { FaGasPump } from "react-icons/fa";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Example({ fuelPlan }) {
-  console.log(fuelPlan);
   return (
     <div className="flex flex-col h-full">
       <Tab.Group>
@@ -33,13 +33,27 @@ export default function Example({ fuelPlan }) {
         </Tab.List>
         <Tab.Panels className="overflow-y-auto flex flex-col flex-auto">
           <Tab.Panel className={classNames("bg-white p-3")}>
-            {fuelPlan.fuelStationOnRoute.data.map(([location, price]) => (
-              <h3 className="text-lg mb-5 font-medium leading-5">{location}</h3>
+            {fuelPlan.fuelPurchaseLocations.map(({ location, price }, idx) => (
+              <div key={idx} className="border-b px-5 py-3 text-sm">
+                <div className="font-semibold mb-2">{location}</div>
+                <div className="flex items-center">
+                  <FaGasPump className="text-red-900 mr-2" />
+                  <span>
+                    Fuel price at this location is{" "}
+                    {price.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                  </span>
+                </div>
+              </div>
             ))}
           </Tab.Panel>
           <Tab.Panel className={classNames("bg-white p-3")}>
-            {fuelPlan.fuelStationOnRoute.data.map(([location, price]) => (
-              <h3 className="text-lg font-medium leading-5">{location}</h3>
+            {fuelPlan.fuelStationOnRoute.data.map(([location, price], idx) => (
+              <h3 key={idx} className="text-lg font-medium leading-5">
+                {location}
+              </h3>
             ))}
           </Tab.Panel>
         </Tab.Panels>

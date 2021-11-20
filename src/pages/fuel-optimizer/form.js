@@ -3,7 +3,7 @@ import LocationSearcher from "components/location-searcher/location-searcher";
 import TractorSearcher from "components/tractor-searcher/tractor-searcher";
 import { useState } from "react";
 
-const Form = ({ setFuelPlanHandler }) => {
+const Form = ({ setFuelPlan }) => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     origin: "",
@@ -25,11 +25,10 @@ const Form = ({ setFuelPlanHandler }) => {
         tractorFuel: formData.tractorFuel,
         tractorFuelCapacity: formData.tractor.gal_capacity,
       });
-      setFuelPlanHandler(data);
+      setLoading(false);
+      setFuelPlan(data);
     } catch (e) {
       console.log(e);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -81,7 +80,10 @@ const Form = ({ setFuelPlanHandler }) => {
           setFormData((prevState) => ({ ...prevState, destination: location.description }));
         }}
       />
-      <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full mt-auto">
+      <button
+        type="submit"
+        className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded w-full mt-auto"
+      >
         {loading ? (
           <>
             <svg
