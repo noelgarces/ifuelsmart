@@ -26,7 +26,11 @@ const Form = ({ setFuelPlan }) => {
         tractorFuelCapacity: formData.tractor.gal_capacity,
       });
       setLoading(false);
-      setFuelPlan(data);
+      setFuelPlan({
+        ...data,
+        fuelPurchaseLocations: data.fuelPurchaseLocations.filter((fpl) => fpl.include),
+        tractor: formData.tractor,
+      });
     } catch (e) {
       console.log(e);
     }

@@ -23,4 +23,7 @@ const getFuelPlan = ({ customer, origin, destination, via, tractorFuel, tractorF
     },
   });
 
-export { getTractors, getFuelPlan };
+const sendMessage = (config) =>
+  apiAxios.post("/iFsengr", config, { code: "Jj5faLSSjBMAks3FFdk2cJEhp567pmK8NiDLa0NL0N848Bo9gsBn/g==" });
+
+export { getTractors, getFuelPlan, sendMessage };
