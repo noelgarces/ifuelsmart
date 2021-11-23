@@ -1,10 +1,11 @@
 import { Tab } from "@headlessui/react";
+import { sendMessage } from "api";
 import cn from "classnames";
 import Button from "components/button";
+import { useState } from "react";
 import { BiExit } from "react-icons/bi";
 import { FaGasPump } from "react-icons/fa";
-import { sendMessage } from "api";
-import { useState } from "react";
+
 const FuelPlan = ({ fuelPlan, setFuelPlan }) => {
   const [loading, setLoading] = useState(false);
 
