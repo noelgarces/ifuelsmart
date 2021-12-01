@@ -7,19 +7,14 @@ import Directions from "components/map/directions";
 
 const FuelOptimzer = () => {
   const [fuelPlan, setFuelPlan] = useState(null);
-  // console.log(fuelPlan);
   return (
     <>
       {!fuelPlan ? (
-        <FuelOptimizerLayout leftPanel={<Form setFuelPlan={setFuelPlan} />} map={<Map />} />
+        <FuelOptimizerLayout leftPanel={<Form setFuelPlan={setFuelPlan} />} map={<Map></Map>} />
       ) : (
         <FuelOptimizerLayout
           leftPanel={<FuelPlan fuelPlan={fuelPlan} setFuelPlan={setFuelPlan} />}
-          map={
-            <Map>
-              <Directions origin={fuelPlan.origin} destination={fuelPlan.destination} />
-            </Map>
-          }
+          map={<Map>{<Directions origin={fuelPlan.origin} destination={fuelPlan.destination} />}</Map>}
         />
       )}
     </>
