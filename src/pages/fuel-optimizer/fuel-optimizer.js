@@ -14,7 +14,11 @@ const FuelOptimzer = () => {
       ) : (
         <FuelOptimizerLayout
           leftPanel={<FuelPlan fuelPlan={fuelPlan} setFuelPlan={setFuelPlan} />}
-          map={<Map>{<Directions origin={fuelPlan.origin} destination={fuelPlan.destination} />}</Map>}
+          map={
+            <Map>
+              <Directions origin={fuelPlan.origin} destination={fuelPlan.destination} />
+            </Map>
+          }
         />
       )}
     </>
