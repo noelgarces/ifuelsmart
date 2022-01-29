@@ -35,8 +35,8 @@ const FuelLocationsPage = () => {
         { title: "Id", field: "id" },
         { title: "Store Number", field: "storeNumber" },
         { title: "Discounted Price", field: "discountedPrice" },
-        { title: "City", field: "city" },
-        { title: "State", field: "state" },
+        { title: "City", field: "city", headerFilter: "input", headerFilterPlaceholder: "Enter city" },
+        { title: "State", field: "state", headerFilter: "input", headerFilterPlaceholder: "Enter state" },
         {
           title: "Status",
           field: "status",

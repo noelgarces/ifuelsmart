@@ -34,7 +34,7 @@ const FuelLocationsPage = () => {
       data: tractors,
       columns: [
         { title: "Id", field: "vehicleid", headerFilter: "input", headerFilterPlaceholder: "Enter id" },
-        { title: "Name", field: "name", headerFilter: "input", headerFilterPlaceholder: "Enter name" },
+        { title: "Name", field: "name" },
         { title: "Email", field: "emailAddress" },
         { title: "Tank Capacity", field: "tankCapacity" },
         {
