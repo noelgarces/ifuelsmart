@@ -15,7 +15,6 @@ const FuelLocationsPage = () => {
     const getTractorsTableAsync = async () => {
       try {
         const { data } = await getTractorsTable(user["https://ifuelsmart.com/company"]);
-        console.log(data);
         setTractors(data);
       } catch (error) {
         console.log(error);
