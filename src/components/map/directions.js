@@ -1,10 +1,12 @@
 import { DirectionsRenderer } from "@react-google-maps/api";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Directions = ({ origin, destination, stops, travelMode }) => {
   const [directions, setDirections] = useState();
+
   useEffect(() => {
     const directionsService = new window.google.maps.DirectionsService();
+
     directionsService.route(
       {
         origin: new window.google.maps.LatLng(origin.lat, origin.lng),
@@ -20,22 +22,13 @@ const Directions = ({ origin, destination, stops, travelMode }) => {
         travelMode: "DRIVING",
       },
       (result, status) => {
-        if (status === window.google.maps.DirectionsStatus.OK) {
-          console.log(result);
-          setDirections(result);
-        } else {
-          console.error(`error fetching directions ${result}`);
-        }
+        if (status === window.google.maps.DirectionsStatus.OK) setDirections(result);
+        else console.error(`error fetching directions ${result}`);
       }
     );
   }, [origin, destination, stops, travelMode]);
 
-  // console.log(directions);
-  return (
-    <>
-      <DirectionsRenderer directions={directions} />
-    </>
-  );
+  return <>{directions && <DirectionsRenderer directions={directions} />}</>;
 };
 
 export default Directions;

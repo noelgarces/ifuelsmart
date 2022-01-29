@@ -4,11 +4,13 @@ const apiAxios = axios.create({
   baseURL: "https://ifuelsmart.azurewebsites.net/api",
   params: {
     code: "rhXDiUskAktQGujvQvFybEiH7BNu6cN35iifH/jzIuMRVDRTEsXu3Q==",
-    // rtype: "plist",
   },
 });
 
-const getTractors = () => apiAxios.get("/ifuels", { params: { rtype: "plist" } });
+const getTractors = () =>
+  axios.get(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==&rtype=plist"
+  );
 
 const getFuelPlan = ({ customer, origin, destination, via, tractorFuel, tractorFuelCapacity }) =>
   apiAxios.get("/ifuels", {
@@ -26,4 +28,52 @@ const getFuelPlan = ({ customer, origin, destination, via, tractorFuel, tractorF
 const sendMessage = (config) =>
   apiAxios.post("/iFsengr", config, { code: "Jj5faLSSjBMAks3FFdk2cJEhp567pmK8NiDLa0NL0N848Bo9gsBn/g==" });
 
-export { getTractors, getFuelPlan, sendMessage };
+const getFuelLocations = (companyId) =>
+  axios.get("https://ifuelsmart.azurewebsites.net/api/IFSFuelStations", {
+    params: {
+      code: "gWZpM07he5aIdDTYaTsiCIjLB6v9k4yctmjWbvuiGNRonpcU5apO1g==",
+      customer: companyId,
+    },
+  });
+
+const updateFuelLocation = (id, status) =>
+  axios.get(`https://ifuelsmart.azurewebsites.net/api/ifs_uFuelStation`, {
+    params: {
+      code: "a5iJtkQSaL9e35RDLKTbBydzGIrbunlzAZlXcPzZDtHkTPmOJa46PA==",
+      id,
+      switch: status,
+    },
+  });
+
+const getTractorsTable = (customerId) =>
+  axios.get("https://ifuelsmart.azurewebsites.net/api/unitLst", {
+    params: {
+      code: "NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+      customer: customerId,
+    },
+  });
+
+const updateTractorStatus = (customer, tractorId, status) =>
+  axios.post(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst",
+    {
+      customer,
+      unit: tractorId,
+      status,
+    },
+    {
+      params: {
+        code: "NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+      },
+    }
+  );
+
+export {
+  getTractors,
+  getFuelPlan,
+  sendMessage,
+  getFuelLocations,
+  getTractorsTable,
+  updateFuelLocation,
+  updateTractorStatus,
+};

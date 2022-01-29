@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import logo from "assets/logo-white.png";
+import dashboardConfig from "dashboard-config";
+import React, { useEffect, useRef, useState } from "react";
+import { BsTruckFlatbed } from "react-icons/bs";
+import { GiFuelTank } from "react-icons/gi";
 import { NavLink, useLocation } from "react-router-dom";
 import Header from "./header";
 
-import logo from "assets/logo-white.png";
+export default function Dashboard({ children }) {
+  console.log("Rendered - Dashboard");
 
-const Dashboard = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -17,7 +22,7 @@ const Dashboard = ({ children }) => {
           width: 100%;
         }
         body {
-
+          overflow: hidden;
         }
       `,
         }}
@@ -27,20 +32,18 @@ const Dashboard = ({ children }) => {
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         {/* Content area */}
-        <div className="relative flex flex-col flex-1 h-full">
+        <div className="relative flex flex-col flex-1 h-full w-[calc(100%-256px)]">
           {/*  Site header */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* Main */}
-          <main className="px-4 sm:px-6 lg:px-8 py-8 relative" style={{ height: "calc(100% - 64px)" }}>
+          <main className="px-4 sm:px-6 lg:px-8 py-8 relative bg-gray-100" style={{ height: "calc(100% - 64px)" }}>
             {children}
           </main>
         </div>
       </div>
     </>
   );
-};
-
-export default Dashboard;
+}
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const location = useLocation();
@@ -49,6 +52,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const trigger = useRef(null);
   const sidebar = useRef(null);
+
+  const { user } = useAuth0();
 
   // close on click outside
   useEffect(() => {
@@ -114,7 +119,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         <div>
           <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">Pages</h3>
           <ul className="mt-3">
-            {/* Dashboard */}
+            {/* Fuel Optimizer */}
             <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "" && "bg-gray-900"}`}>
               <NavLink
                 to="/"
@@ -122,7 +127,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   page === "" && "hover:text-gray-200"
                 }`}
               >
-                <div className="flex flex-grow">
+                <div className="flex flex-grow items-center">
                   <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
                     <path
                       className={`fill-current text-gray-400 ${page === "" && "text-orange-500"}`}
@@ -141,170 +146,56 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </div>
               </NavLink>
             </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "campaigns" && "bg-gray-900"}`}>
+            {/* Fuel Locations */}
+            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "fuel-locations" && "bg-gray-900"}`}>
               <NavLink
-                to="/"
+                to="fuel-locations"
                 className={`block text-gray-200 hover:text-white transition duration-150 ${
                   page === "campaigns" && "hover:text-gray-200"
                 }`}
               >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      className={`fill-current text-gray-600 ${page === "campaigns" && "text-orange-500"}`}
-                      d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z"
-                    />
-                    <path
-                      className={`fill-current text-gray-400 ${page === "campaigns" && "text-orange-300"}`}
-                      d="M17 23a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 010-2 4 4 0 004-4 1 1 0 012 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1zM7 13a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 110-2 4 4 0 004-4 1 1 0 112 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1z"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Fuel Prices</span>
+                <div className="flex flex-grow items-center">
+                  <GiFuelTank className="flex-shrink-0 h-6 w-6 mr-3 text-gray-400" />
+                  <span className="text-sm font-medium">Fuel Locations</span>
                 </div>
               </NavLink>
             </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "tasks" && "bg-gray-900"}`}>
+            {/* Tractors */}
+            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "tractors" && "bg-gray-900"}`}>
               <NavLink
-                to="/"
+                to="tractors"
                 className={`block text-gray-200 hover:text-white transition duration-150 ${
-                  page === "tasks" && "hover:text-gray-200"
+                  page === "campaigns" && "hover:text-gray-200"
                 }`}
               >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      className={`fill-current text-gray-600 ${page === "tasks" && "text-orange-500"}`}
-                      d="M8 1v2H3v19h18V3h-5V1h7v23H1V1z"
-                    />
-                    <path
-                      className={`fill-current text-gray-600 ${page === "tasks" && "text-orange-500"}`}
-                      d="M1 1h22v23H1z"
-                    />
-                    <path
-                      className={`fill-current text-gray-400 ${page === "tasks" && "text-orange-300"}`}
-                      d="M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Fuel Purchases</span>
+                <div className="flex flex-grow items-center">
+                  <BsTruckFlatbed className="flex-shrink-0 h-6 w-6 mr-3 text-gray-400" />
+                  <span className="text-sm font-medium">Tractors</span>
                 </div>
               </NavLink>
             </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "settings" && "bg-gray-900"}`}>
-              <NavLink
-                to="/"
-                className={`block text-gray-200 hover:text-white transition duration-150 ${
-                  page === "settings" && "hover:text-gray-200"
+
+            {/* ========= Custome Features Routes ========= */}
+            {dashboardConfig[user["https://ifuelsmart.com/company"]].customFeatures.map((feature) => (
+              <li
+                key={feature.name}
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                  page === feature.route.substring(1) && "bg-gray-900"
                 }`}
               >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      className={`fill-current text-gray-600 ${page === "settings" && "text-orange-500"}`}
-                      d="M19.714 14.7l-7.007 7.007-1.414-1.414 7.007-7.007c-.195-.4-.298-.84-.3-1.286a3 3 0 113 3 2.969 2.969 0 01-1.286-.3z"
-                    />
-                    <path
-                      className={`fill-current text-gray-400 ${page === "settings" && "text-orange-300"}`}
-                      d="M10.714 18.3c.4-.195.84-.298 1.286-.3a3 3 0 11-3 3c.002-.446.105-.885.3-1.286l-6.007-6.007 1.414-1.414 6.007 6.007z"
-                    />
-                    <path
-                      className={`fill-current text-gray-600 ${page === "settings" && "text-orange-500"}`}
-                      d="M5.7 10.714c.195.4.298.84.3 1.286a3 3 0 11-3-3c.446.002.885.105 1.286.3l7.007-7.007 1.414 1.414L5.7 10.714z"
-                    />
-                    <path
-                      className={`fill-current text-gray-400 ${page === "settings" && "text-orange-300"}`}
-                      d="M19.707 9.292a3.012 3.012 0 00-1.415 1.415L13.286 5.7c-.4.195-.84.298-1.286.3a3 3 0 113-3 2.969 2.969 0 01-.3 1.286l5.007 5.006z"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Purchase Exceptions</span>
-                </div>
-              </NavLink>
-            </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "messages" && "bg-gray-900"}`}>
-              <NavLink
-                to="/"
-                className={`block text-gray-200 hover:text-white transition duration-150 ${
-                  page === "messages" && "hover:text-gray-200"
-                }`}
-              >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      className={`fill-current text-gray-400 ${page === "orders" && "text-orange-300"}`}
-                      d="M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z"
-                    />
-                    <path
-                      className={`fill-current text-gray-700 ${page === "orders" && "text-orange-600"}`}
-                      d="M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z"
-                    />
-                    <path
-                      className={`fill-current text-gray-600 ${page === "orders" && "text-orange-500"}`}
-                      d="M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Fuel Cards</span>
-                </div>
-              </NavLink>
-            </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "customers" && "bg-gray-900"}`}>
-              <NavLink
-                to="/"
-                className={`block text-gray-200 hover:text-white transition duration-150 ${
-                  page === "customers" && "hover:text-gray-200"
-                }`}
-              >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <path
-                      className={`fill-current text-gray-400 ${page === "customers" && "text-orange-300"}`}
-                      d="M7 0l6 7H8v10H6V7H1z"
-                    />
-                    <path
-                      className={`fill-current text-gray-600 ${page === "customers" && "text-orange-500"}`}
-                      d="M18 7v10h5l-6 7-6-7h5V7z"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Miles Per Gallon</span>
-                </div>
-              </NavLink>
-            </li>
-            <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "applications" && "bg-gray-900"}`}>
-              <NavLink
-                to="/"
-                className={`block text-gray-200 hover:text-white transition duration-150 ${
-                  page === "applications" && "hover:text-gray-200"
-                }`}
-              >
-                <div className="flex flex-grow">
-                  <svg className="flex-shrink-0 h-6 w-6 mr-3" viewBox="0 0 24 24">
-                    <circle
-                      className={`fill-current text-gray-400 ${page === "applications" && "text-orange-300"}`}
-                      cx="18.5"
-                      cy="5.5"
-                      r="4.5"
-                    />
-                    <circle
-                      className={`fill-current text-gray-600 ${page === "applications" && "text-orange-500"}`}
-                      cx="5.5"
-                      cy="5.5"
-                      r="4.5"
-                    />
-                    <circle
-                      className={`fill-current text-gray-600 ${page === "applications" && "text-orange-500"}`}
-                      cx="18.5"
-                      cy="18.5"
-                      r="4.5"
-                    />
-                    <circle
-                      className={`fill-current text-gray-400 ${page === "applications" && "text-orange-300"}`}
-                      cx="5.5"
-                      cy="18.5"
-                      r="4.5"
-                    />
-                  </svg>
-                  <span className="text-sm font-medium">Goal</span>
-                </div>
-              </NavLink>
-            </li>
+                <NavLink
+                  to={feature.route}
+                  className={`block text-gray-200 hover:text-white transition duration-150 ${
+                    page === "campaigns" && "hover:text-gray-200"
+                  }`}
+                >
+                  <div className="flex flex-grow items-center">
+                    {feature.icon}
+                    <span className="text-sm font-medium">{feature.name}</span>
+                  </div>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

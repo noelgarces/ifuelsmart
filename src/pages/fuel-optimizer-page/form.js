@@ -1,9 +1,11 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { getFuelPlan } from "api";
 import LocationSearcher from "components/location-searcher/location-searcher";
 import TractorSearcher from "components/tractor-searcher/tractor-searcher";
 import { useState } from "react";
 
 const Form = ({ setFuelPlan }) => {
+  const { user } = useAuth0();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     origin: "",
@@ -18,7 +20,7 @@ const Form = ({ setFuelPlan }) => {
     setLoading(true);
     try {
       const { data } = await getFuelPlan({
-        customer: "sk1",
+        customer: user["https://ifuelsmart.com/company"],
         origin: formData.origin,
         destination: formData.destination,
         via: formData.via,
@@ -37,7 +39,11 @@ const Form = ({ setFuelPlan }) => {
   };
 
   return (
-    <form className="px-5 py-5 flex flex-col h-full" onSubmit={getFuelPlanHandler} autoComplete="off">
+    <form
+      className="px-5 py-5 flex flex-col h-full flex-shrink-0 overflow-y-auto"
+      onSubmit={getFuelPlanHandler}
+      autoComplete="off"
+    >
       {/* Tractor Searcher */}
       <TractorSearcher
         onTractorSelect={(tractor) => {

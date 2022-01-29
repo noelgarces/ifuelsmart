@@ -33,7 +33,7 @@ const TractorSearcher = ({ onTractorSelect }) => {
   if (showOptions && userInput) {
     if (filteredOptions.length) {
       optionList = (
-        <ul className="bg-gray-100 border absolute top-full w-full mt-1 rounded shadow z-10">
+        <ul className="absolute top-full w-full mt-1 z-10 bg-gray-50 rounded-sm border border-gray-200">
           {filteredOptions.splice(0, 5).map((option, i) => {
             return (
               <li

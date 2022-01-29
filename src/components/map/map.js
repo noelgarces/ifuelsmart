@@ -13,7 +13,7 @@ const center = {
 };
 
 const Map = ({ children }) => {
-  const [map, setMap] = useState(null);
+  const [, setMap] = useState(null);
 
   const onLoad = useCallback((map) => setMap(map), []);
 

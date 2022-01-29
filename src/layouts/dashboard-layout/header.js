@@ -40,7 +40,8 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
 export default Header;
 
 const UserMenu = () => {
-  const { user } = useAuth0();
+  const { user, logout } = useAuth0();
+
   return (
     <div className="">
       <Menu as="div" className="relative inline-block text-left">
@@ -67,6 +68,11 @@ const UserMenu = () => {
                     className={`${
                       active ? "bg-gray-400 text-white" : "text-gray-900"
                     } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    onClick={() => {
+                      logout({
+                        returnTo: window.origin,
+                      });
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

@@ -10,19 +10,20 @@ const useTractors = () => {
 };
 
 const TractorsProvider = ({ children }) => {
+  console.log("Rendered: Tractors Context");
+
   const [tractors, setTractors] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const getTractorsAsync = async () => {
-      setLoading(true);
       try {
         const { data } = await getTractors();
         setTractors(data.unit_numbers);
       } catch (e) {
         console.log(e);
       } finally {
-        setLoading(false);
+        setInitialLoading(false);
       }
     };
     getTractorsAsync();
@@ -30,8 +31,8 @@ const TractorsProvider = ({ children }) => {
 
   return (
     <TractorsContext.Provider value={tractors}>
-      {!loading && children}
-      {loading && (
+      {!initialLoading && children}
+      {initialLoading && (
         <div className="h-screen bg-gray-800 grid place-items-center text-white">
           <div className="flex flex-col items-center px-8 max-w-xs md:max-w-lg text-center">
             <svg

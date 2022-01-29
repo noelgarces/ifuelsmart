@@ -1,11 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { lazy, Suspense } from "react";
+import "tabulator-tables/dist/css/tabulator.min.css";
 import "./App.css";
 const AuthApp = lazy(() => import("auth-app"));
 const UnAuthApp = lazy(() => import("unauth-app"));
 
 const App = () => {
   const { isLoading, user } = useAuth0();
+
+  console.log("Rendered: App.js");
 
   if (isLoading) {
     return (
