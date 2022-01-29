@@ -8,8 +8,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import Header from "./header";
 
 export default function Dashboard({ children }) {
-  console.log("Rendered - Dashboard");
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

@@ -4,7 +4,7 @@ import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import Directions from "components/map/directions";
 
 const MapTest = ({ locations, origin, destination }) => {
-  console.log(locations);
+  // eslint-disable-next-line no-unused-vars
   const [mapRef, setMapRef] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [markerMap, setMarkerMap] = useState({});

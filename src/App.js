@@ -8,8 +8,6 @@ const UnAuthApp = lazy(() => import("unauth-app"));
 const App = () => {
   const { isLoading, user } = useAuth0();
 
-  console.log("Rendered: App.js");
-
   if (isLoading) {
     return (
       <div className="h-screen bg-gray-800 grid place-items-center text-white">

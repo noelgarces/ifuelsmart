@@ -10,8 +10,6 @@ const useTractors = () => {
 };
 
 const TractorsProvider = ({ children }) => {
-  console.log("Rendered: Tractors Context");
-
   const [tractors, setTractors] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
