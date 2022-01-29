@@ -24,8 +24,8 @@ const FuelPlan = ({ fuelPlan, resetFuelPlan }) => {
     setLoading(true);
     try {
       await sendMessage({
-        to: "noel.garces08@gmail.com",
-        subject: "Fuel Plan | ifuelsmart",
+        to: fuelPlan.tractor.email_address,
+        subject: "Fuel Plan",
         body: message.replace(/[^\S\r\n]+/g, " "),
       });
     } catch (error) {
