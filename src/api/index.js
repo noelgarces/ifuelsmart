@@ -46,26 +46,15 @@ const updateFuelLocation = (id, status) =>
   });
 
 const getTractorsTable = (customerId) =>
-  axios.get("https://ifuelsmart.azurewebsites.net/api/unitLst", {
-    params: {
-      code: "NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
-      customer: customerId,
-    },
-  });
+  axios.post(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+    { customer: customerId, action: "get" }
+  );
 
 const updateTractorStatus = (customer, tractorId, status) =>
   axios.post(
-    "https://ifuelsmart.azurewebsites.net/api/unitLst",
-    {
-      customer,
-      unit: tractorId,
-      status,
-    },
-    {
-      params: {
-        code: "NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
-      },
-    }
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+    { customer, unit: tractorId, status, action: "patch" }
   );
 
 export {
