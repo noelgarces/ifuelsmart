@@ -50,7 +50,7 @@ const FuelLocationsPage = () => {
 
     tabulator.current.on("cellEdited", async (cell) => {
       const data = cell.getData();
-      await updateTractorStatus(user["https://ifuelsmart.com/company"], data.vehicleid, data.flag === true ? 1 : 0);
+      await updateTractorStatus(user["https://ifuelsmart.com/company"], data.vehicleid, data.flag);
     });
   }, [user, loading, tractors]);
 
