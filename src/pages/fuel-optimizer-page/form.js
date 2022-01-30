@@ -59,7 +59,7 @@ const Form = ({ setFuelPlan }) => {
       {/* Tractor Fuel */}
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="tractorFuel">
-          Tractor Fuel
+          Tractor Fuel ({formData.tractorFuel} gallons)
         </label>
         <input
           type="range"
