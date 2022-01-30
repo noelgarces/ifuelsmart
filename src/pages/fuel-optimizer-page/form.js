@@ -3,6 +3,7 @@ import { getFuelPlan } from "api";
 import LocationSearcher from "components/location-searcher/location-searcher";
 import TractorSearcher from "components/tractor-searcher/tractor-searcher";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Form = ({ setFuelPlan }) => {
   const { user } = useAuth0();
@@ -10,7 +11,7 @@ const Form = ({ setFuelPlan }) => {
   const [formData, setFormData] = useState({
     origin: "",
     destination: "",
-    via: "",
+    via: [],
     tractorFuel: 0,
     tractor: null,
   });
@@ -23,7 +24,7 @@ const Form = ({ setFuelPlan }) => {
         customer: user["https://ifuelsmart.com/company"],
         origin: formData.origin,
         destination: formData.destination,
-        via: formData.via,
+        via: formData.via.length ? formData.via[0].location : "",
         tractorFuel: formData.tractorFuel,
         tractorFuelCapacity: formData.tractor.gal_capacity,
       });
@@ -36,6 +37,10 @@ const Form = ({ setFuelPlan }) => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const addVia = () => {
+    setFormData((prevState) => ({ ...prevState, via: [...prevState.via, { id: uuidv4(), location: "" }] }));
   };
 
   return (
@@ -81,6 +86,44 @@ const Form = ({ setFuelPlan }) => {
           setFormData((prevState) => ({ ...prevState, origin: location.description }));
         }}
       />
+      {/* Via */}
+      <button
+        type="button"
+        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded w-full mb-2"
+        onClick={addVia}
+        disabled={formData.via.length === 1}
+      >
+        Add Stop
+      </button>
+      {formData.via.map((via, i) => (
+        <LocationSearcher
+          key={via.id}
+          label={`Stop ${i + 1}`}
+          placeholder="Enter origin location"
+          onSuggestSelect={(location) => {
+            // set to empty if no location
+            if (!location) {
+              return setFormData((prevState) => ({
+                ...prevState,
+                via: prevState.via.map((v) => {
+                  if (v.id === via.id) v.location = "";
+                  return v;
+                }),
+              }));
+            }
+            // if location set location
+            setFormData((prevState) => ({
+              ...prevState,
+              via: prevState.via.map((v) => {
+                if (v.id === via.id) {
+                  v.location = location.description;
+                }
+                return v;
+              }),
+            }));
+          }}
+        />
+      ))}
       {/* Destination */}
       <LocationSearcher
         label="Destination"

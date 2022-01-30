@@ -63,7 +63,7 @@ const FuelOptimzer = () => {
           >
             {fuelPlan && (
               <>
-                <Directions origin={fuelPlan.origin} destination={fuelPlan.destination} />
+                <Directions origin={fuelPlan.origin} via={fuelPlan.directionsVia} destination={fuelPlan.destination} />
                 {fuelPlan.fuelPurchaseLocations.map((location) => (
                   <Marker
                     key={location.loc_id}

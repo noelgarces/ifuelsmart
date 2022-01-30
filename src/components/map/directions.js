@@ -1,7 +1,7 @@
 import { DirectionsRenderer } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 
-const Directions = ({ origin, destination, stops, travelMode }) => {
+const Directions = ({ origin, via, destination, stops, travelMode }) => {
   const [directions, setDirections] = useState();
 
   useEffect(() => {
@@ -11,10 +11,10 @@ const Directions = ({ origin, destination, stops, travelMode }) => {
       {
         origin: new window.google.maps.LatLng(origin.lat, origin.lng),
         destination: new window.google.maps.LatLng(destination.lat, destination.lng),
-        waypoints: stops
+        waypoints: via
           ? [
               {
-                location: new window.google.maps.LatLng(stops[0].coordinates.lat, stops[0].coordinates.lng),
+                location: via,
                 stopover: false,
               },
             ]
@@ -26,7 +26,7 @@ const Directions = ({ origin, destination, stops, travelMode }) => {
         else console.error(`error fetching directions ${result}`);
       }
     );
-  }, [origin, destination, stops, travelMode]);
+  }, [origin, via, destination, stops, travelMode]);
 
   return <>{directions && <DirectionsRenderer directions={directions} />}</>;
 };
