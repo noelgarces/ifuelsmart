@@ -114,7 +114,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         {/* Links */}
-        <div>
+        <div className="mb-5">
           <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">Pages</h3>
           <ul className="mt-3">
             {/* Fuel Optimizer */}
@@ -145,6 +145,62 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
               </NavLink>
             </li>
             {/* Fuel Locations */}
+            {/* <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "fuel-locations" && "bg-gray-900"}`}>
+              <NavLink
+                to="fuel-locations"
+                className={`block text-gray-200 hover:text-white transition duration-150 ${
+                  page === "campaigns" && "hover:text-gray-200"
+                }`}
+              >
+                <div className="flex flex-grow items-center">
+                  <GiFuelTank className="flex-shrink-0 h-6 w-6 mr-3 text-gray-400" />
+                  <span className="text-sm font-medium">Fuel Locations</span>
+                </div>
+              </NavLink>
+            </li> */}
+            {/* Tractors */}
+            {/* <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "tractors" && "bg-gray-900"}`}>
+              <NavLink
+                to="tractors"
+                className={`block text-gray-200 hover:text-white transition duration-150 ${
+                  page === "campaigns" && "hover:text-gray-200"
+                }`}
+              >
+                <div className="flex flex-grow items-center">
+                  <BsTruckFlatbed className="flex-shrink-0 h-6 w-6 mr-3 text-gray-400" />
+                  <span className="text-sm font-medium">Tractors</span>
+                </div>
+              </NavLink>
+            </li> */}
+
+            {/* ========= Custome Features Routes ========= */}
+            {dashboardConfig[user["https://ifuelsmart.com/company"]].customFeatures.map((feature) => (
+              <li
+                key={feature.name}
+                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
+                  page === feature.route.substring(1) && "bg-gray-900"
+                }`}
+              >
+                <NavLink
+                  to={feature.route}
+                  className={`block text-gray-200 hover:text-white transition duration-150 ${
+                    page === "campaigns" && "hover:text-gray-200"
+                  }`}
+                >
+                  <div className="flex flex-grow items-center">
+                    {feature.icon}
+                    <span className="text-sm font-medium">{feature.name}</span>
+                  </div>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-xs uppercase text-gray-500 font-semibold pl-3">Preferences</h3>
+          <ul className="mt-3">
+            {/* Fuel Locations */}
             <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${page === "fuel-locations" && "bg-gray-900"}`}>
               <NavLink
                 to="fuel-locations"
@@ -172,28 +228,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 </div>
               </NavLink>
             </li>
-
-            {/* ========= Custome Features Routes ========= */}
-            {dashboardConfig[user["https://ifuelsmart.com/company"]].customFeatures.map((feature) => (
-              <li
-                key={feature.name}
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  page === feature.route.substring(1) && "bg-gray-900"
-                }`}
-              >
-                <NavLink
-                  to={feature.route}
-                  className={`block text-gray-200 hover:text-white transition duration-150 ${
-                    page === "campaigns" && "hover:text-gray-200"
-                  }`}
-                >
-                  <div className="flex flex-grow items-center">
-                    {feature.icon}
-                    <span className="text-sm font-medium">{feature.name}</span>
-                  </div>
-                </NavLink>
-              </li>
-            ))}
           </ul>
         </div>
       </div>
