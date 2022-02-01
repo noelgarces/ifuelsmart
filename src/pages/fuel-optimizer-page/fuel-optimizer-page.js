@@ -82,7 +82,7 @@ const FuelOptimzer = () => {
                       {/* <h3>{JSON.stringify(selectedPlace)}</h3> */}
                       <p className="font-medium">
                         {selectedPlace.fuelToPurchase === -99
-                          ? "Fill up tractor at"
+                          ? "Top off tractor at"
                           : `Purchase ${selectedPlace.fuelToPurchase} gallons at`}
                         &nbsp;
                         {selectedPlace.price.toLocaleString("en-US", { style: "currency", currency: "USD" })} / gal

@@ -15,7 +15,7 @@ const FuelPlan = ({ fuelPlan, resetFuelPlan }) => {
       message += `
       ${idx + 1}. ${fpl.location}:
       - ${
-        fpl.fuelToPurchase === -99 ? "Fill up tractor at" : `Purchase ${fpl.fuelToPurchase} gallons at`
+        fpl.fuelToPurchase === -99 ? "Top off tractor at" : `Purchase ${fpl.fuelToPurchase} gallons at`
       } ${fpl.price.toLocaleString("en-US", { style: "currency", currency: "USD" })} / gal
       - Exit: ${fpl.interstate_exit}
       \n`;
@@ -71,7 +71,7 @@ const FuelPlan = ({ fuelPlan, resetFuelPlan }) => {
                   <FaGasPump className="text-red-900 mr-2" />
                   <span>
                     {fpl.fuelToPurchase === -99
-                      ? `Fill up tractor at this location at `
+                      ? `Top off tractor at this location at `
                       : `Purchase ${fpl.fuelToPurchase} gallons at `}
                     <span className="bg-green-100 px-1 py-0.5 rounded">
                       {fpl.price.toLocaleString("en-US", { style: "currency", currency: "USD" })} / gal
