@@ -98,7 +98,7 @@ const Form = ({ setFuelPlan }) => {
       {formData.via.map((via, i) => (
         <LocationSearcher
           key={via.id}
-          label={`Stop ${i + 1}`}
+          label="Stop"
           placeholder="Enter origin location"
           onSuggestSelect={(location) => {
             // set to empty if no location
