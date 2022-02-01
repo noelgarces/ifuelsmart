@@ -80,7 +80,9 @@ const FuelOptimzer = () => {
                   <InfoWindow anchor={markerMap[selectedPlace.loc_id]} onCloseClick={() => setInfoOpen(false)}>
                     <div>
                       {/* <h3>{JSON.stringify(selectedPlace)}</h3> */}
-                      <p className="font-medium">
+                      <p className="font-medium mb-0.5">{selectedPlace.location}</p>
+                      <p className="mb-0.5">{selectedPlace.interstate_exit}</p>
+                      <p className="">
                         {selectedPlace.fuelToPurchase === -99
                           ? "Top off tractor at"
                           : `Purchase ${selectedPlace.fuelToPurchase} gallons at`}
