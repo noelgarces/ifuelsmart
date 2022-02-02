@@ -12,7 +12,7 @@ const Form = ({ setFuelPlan }) => {
     origin: "",
     destination: "",
     via: [],
-    tractorFuel: 0,
+    tractorFuel: "1",
     tractor: null,
   });
 
@@ -61,27 +61,22 @@ const Form = ({ setFuelPlan }) => {
       {/* Tractor Searcher */}
       <TractorSearcher
         onTractorSelect={(tractor) => {
-          if (!tractor) return setFormData((prevState) => ({ ...prevState, tractorFuel: 0, tractor: null }));
+          if (!tractor) return setFormData((prevState) => ({ ...prevState, tractorFuel: "1", tractor: null }));
           setFormData((prevState) => ({ ...prevState, tractor }));
         }}
       />
       {/* Tractor Fuel */}
       <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="tractorFuel">
-          Tractor Fuel ({formData.tractorFuel} gallons)
+          Tractor Fuel ({formData.tractor ? `${formData.tractorFuel} gallons` : "Select truck first"})
         </label>
         <input
           type="range"
           placeholder="Enter origin location"
-          min="0"
-          max="8"
-          defaultValue="0"
-          onChange={(e) =>
-            setFormData((prevState) => ({
-              ...prevState,
-              tractorFuel: (e.target.value / 8) * prevState.tractor.gal_capacity,
-            }))
-          }
+          min="1"
+          max={formData.tractor ? formData.tractor.gal_capacity : "1"}
+          value={formData.tractorFuel}
+          onChange={(e) => setFormData((prevState) => ({ ...prevState, tractorFuel: e.target.value }))}
           className="block w-full"
           disabled={!formData.tractor}
         />
