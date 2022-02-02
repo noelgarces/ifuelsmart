@@ -1,13 +1,22 @@
-import { useTractors } from "contexts/tractors-context";
 import cn from "classnames";
-import { useState } from "react";
+import { useTractors } from "contexts/tractors-context";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
-const TractorSearcher = ({ onTractorSelect }) => {
+const TractorSearcher = forwardRef(({ onTractorSelect }, ref) => {
   const [activeOption, setActiveOption] = useState(0);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
   const [userInput, setUserInput] = useState("");
   const tractors = useTractors();
+
+  useImperativeHandle(ref, () => ({
+    resetTractorSearcherState: () => {
+      setActiveOption(0);
+      setFilteredOptions([]);
+      setShowOptions(false);
+      setUserInput("");
+    },
+  }));
 
   const handleChange = (e) => {
     const filteredOptions = tractors.filter((option) => {
@@ -75,6 +84,6 @@ const TractorSearcher = ({ onTractorSelect }) => {
       </div>
     </>
   );
-};
+});
 
 export default TractorSearcher;
