@@ -43,6 +43,15 @@ const Form = ({ setFuelPlan }) => {
     setFormData((prevState) => ({ ...prevState, via: [...prevState.via, { id: uuidv4(), location: "" }] }));
   };
 
+  const removeVia = (id) => {
+    const inputs = [...formData.via];
+    inputs.splice(
+      inputs.findIndex((input) => input.id === id),
+      1
+    );
+    setFormData((prevState) => ({ ...prevState, via: inputs }));
+  };
+
   return (
     <form
       className="px-5 py-5 flex flex-col h-full flex-shrink-0 overflow-y-auto"
@@ -89,40 +98,46 @@ const Form = ({ setFuelPlan }) => {
       {/* Via */}
       <button
         type="button"
-        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded w-full mb-2"
+        className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded w-full mb-4"
         onClick={addVia}
         disabled={formData.via.length === 1}
       >
         Add Stop
       </button>
       {formData.via.map((via, i) => (
-        <LocationSearcher
-          key={via.id}
-          label="Stop"
-          placeholder="Enter origin location"
-          onSuggestSelect={(location) => {
-            // set to empty if no location
-            if (!location) {
-              return setFormData((prevState) => ({
+        <div key={via.id} className="flex">
+          <LocationSearcher
+            label=""
+            placeholder="Enter stop location"
+            onSuggestSelect={(location) => {
+              if (!location) {
+                return setFormData((prevState) => ({
+                  ...prevState,
+                  via: prevState.via.map((v) => {
+                    if (v.id === via.id) v.location = "";
+                    return v;
+                  }),
+                }));
+              }
+
+              setFormData((prevState) => ({
                 ...prevState,
                 via: prevState.via.map((v) => {
-                  if (v.id === via.id) v.location = "";
+                  if (v.id === via.id) {
+                    v.location = location.description;
+                  }
                   return v;
                 }),
               }));
-            }
-            // if location set location
-            setFormData((prevState) => ({
-              ...prevState,
-              via: prevState.via.map((v) => {
-                if (v.id === via.id) {
-                  v.location = location.description;
-                }
-                return v;
-              }),
-            }));
-          }}
-        />
+            }}
+          />
+          <div
+            className="bg-red-500 text-white flex items-center h-[38px] mt-2 px-4 rounded-sm cursor-pointer"
+            onClick={() => removeVia(via.id)}
+          >
+            X
+          </div>
+        </div>
       ))}
       {/* Destination */}
       <LocationSearcher
