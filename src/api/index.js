@@ -57,6 +57,22 @@ const updateTractorStatus = (customer, tractorId, status) =>
     { customer, unit: tractorId, status, action: "patch" }
   );
 
+const createTractor = (newTractorData) =>
+  axios.post(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+    newTractorData
+  );
+
+const deleteTractor = (customer, tractorId) =>
+  axios.post(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+    {
+      customer,
+      unit: tractorId,
+      action: "delete",
+    }
+  );
+
 export {
   getTractors,
   getFuelPlan,
@@ -65,4 +81,6 @@ export {
   getTractorsTable,
   updateFuelLocation,
   updateTractorStatus,
+  createTractor,
+  deleteTractor,
 };
