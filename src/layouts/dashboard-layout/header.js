@@ -5,7 +5,7 @@ import { Fragment } from "react";
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
   return (
-    <header className="sticky top-0 bg-white border-b border-gray-200 z-30 ">
+    <header className="sticky top-0 bg-orange-600 border-b border-gray-200 z-30 ">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 -mb-px">
           {/* Header: Left side */}
@@ -46,7 +46,7 @@ const UserMenu = () => {
     <div className="">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800">
+          <Menu.Button className="inline-flex justify-center items-center w-full px-4 py-2 text-sm font-medium text-white hover:text-white">
             {user.nickname.toUpperCase()}
             <ChevronDownIcon className="w-5 h-5 ml-2 -mr-1 text-violet-200 hover:text-violet-100" aria-hidden="true" />
           </Menu.Button>
