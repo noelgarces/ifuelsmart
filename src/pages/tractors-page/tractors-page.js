@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { getTractorsTable, updateTractorStatus } from "api";
+import { deleteTractor, getTractorsTable, updateTractorStatus } from "api";
 
 import React, { useEffect, useRef, useState } from "react";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
@@ -10,6 +10,10 @@ const FuelLocationsPage = () => {
   const tabulatorContainer = useRef();
   const tabulator = useRef();
   const { user } = useAuth0();
+
+  var deleteIcon = function (cell, formatterParams, onRendered) {
+    return "Delete";
+  };
 
   useEffect(() => {
     const getTractorsTableAsync = async () => {
@@ -42,6 +46,15 @@ const FuelLocationsPage = () => {
           formatter: "tickCross",
           editor: true,
           editable: true,
+        },
+        {
+          title: "Delete",
+          formatter: deleteIcon,
+          cellClick: async (e, cell) => {
+            const rowData = cell.getData();
+            const res = await deleteTractor(user["https://ifuelsmart.com/company"], rowData.vehicleid);
+            if (res.status === 200) cell.getRow().delete();
+          },
         },
       ],
     });
