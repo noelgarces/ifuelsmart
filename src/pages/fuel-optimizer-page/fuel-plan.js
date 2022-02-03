@@ -80,7 +80,7 @@ const FuelPlan = ({ fuelPlan, resetFuelPlan }) => {
                 </div>
                 <div className="flex items-center">
                   <BiExit className="mr-2" />
-                  Take exit {fpl.interstate_exit}
+                  {fpl.interstate_exit}
                 </div>
               </div>
             ))}
