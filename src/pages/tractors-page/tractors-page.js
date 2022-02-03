@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { deleteTractor, getTractorsTable, updateTractorStatus } from "api";
-
 import React, { useEffect, useRef, useState } from "react";
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 
@@ -48,7 +47,8 @@ const FuelLocationsPage = () => {
           editable: true,
         },
         {
-          title: "Delete",
+          width: 75,
+          hozAlign: "center",
           formatter: deleteIcon,
           cellClick: async (e, cell) => {
             const rowData = cell.getData();
