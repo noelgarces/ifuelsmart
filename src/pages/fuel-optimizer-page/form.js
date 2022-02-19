@@ -28,7 +28,7 @@ const Form = ({ setFuelPlan }) => {
         destination: destination,
         via: waypoints.length ? waypoints[0].location : "",
         tractorFuel: tractorFuel,
-        tractorFuelCapacity: tractor.gal_capacity,
+        tractorFuelCapacity: tractor.tank_capacity,
       });
       setLoading(false);
       setFuelPlan({
@@ -61,7 +61,7 @@ const Form = ({ setFuelPlan }) => {
     tractorSearcherRef.current.resetTractorSearcherState();
   };
 
-  console.log(tractorSearcherRef.current);
+  console.log(tractor);
 
   return (
     <form

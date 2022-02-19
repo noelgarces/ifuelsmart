@@ -51,24 +51,30 @@ const getTractorsTable = (customerId) =>
     { customer: customerId, action: "get" }
   );
 
+// Not using temp
 const updateTractorStatus = (customer, tractorId, status) =>
   axios.post(
     "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
     { customer, unit: tractorId, status, action: "patch" }
   );
 
-const createTractor = (newTractorData) =>
-  axios.post(
-    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
-    newTractorData
-  );
-
-const deleteTractor = (customer, tractorId) =>
+// creates and updates
+const createTractor = (customer, tractorData) =>
   axios.post(
     "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
     {
       customer,
-      unit: tractorId,
+      action: "post",
+      ...tractorData,
+    }
+  );
+
+const deleteTractor = (customer, id) =>
+  axios.post(
+    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
+    {
+      customer,
+      vid: id,
       action: "delete",
     }
   );

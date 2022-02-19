@@ -3,9 +3,9 @@ import IFrameDisplay from "components/iframe-display";
 import { TractorsProvider } from "contexts/tractors-context";
 import dashboardConfig from "dashboard-config";
 import DashboardLayout from "layouts/dashboard-layout/dashboard-layout";
-import FuelLocationsPage from "pages/fuel-locations-page/fuel-locations-page";
+import FuelLocationsPage from "pages/fuel-locations-page/fuel-locations-page-v2";
 import FuelOptimzerPage from "pages/fuel-optimizer-page/fuel-optimizer-page";
-import TractorsPage from "pages/tractors-page/tractors-page";
+import TractorsPage from "pages/tractors-page/tractors-page-v2";
 import { Route, Routes } from "react-router-dom";
 
 const AuthApp = () => {

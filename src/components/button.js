@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
 
-const Button = ({ loading, children, variant, ...rest }) => {
+const Button = ({ loading, children, variant, className, ...rest }) => {
   const color = {
     orange: "bg-orange-600 hover:bg-orange-700 text-white",
     lightGray: "bg-gray-300 hover:bg-gray-400 text-gray-800",
@@ -10,7 +10,9 @@ const Button = ({ loading, children, variant, ...rest }) => {
   return (
     <button
       type="submit"
-      className={cn("font-bold py-2 px-4 rounded w-full transition-colors duration-300 ease-in-out", color)}
+      className={cn("font-bold py-2 px-4 rounded w-full transition-colors duration-300 ease-in-out", color, {
+        [className]: className,
+      })}
       {...rest}
     >
       {loading ? (
