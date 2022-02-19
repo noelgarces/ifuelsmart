@@ -74,7 +74,7 @@ const deleteTractor = (customer, id) =>
     "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
     {
       customer,
-      vid: id,
+      id,
       action: "delete",
     }
   );
