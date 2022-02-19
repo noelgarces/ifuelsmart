@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useFilters, useTable } from "react-table";
 import ColumnFilter from "./column-filter";
-import Form from "./form";
+import ModalForm from "./modal-form";
 // import styles from "./tractors-page.module.css";
 
 const INIT_TRACTOR_DATA = {
@@ -40,22 +40,6 @@ export default function TractorsPage() {
             <span className="p-2 bg-red-100 rounded">Disabled</span>
           ),
       },
-      // {
-      //   id: "actions",
-      //   Header: "Actions",
-      //   Cell: ({ row }) => {
-      //     return (
-      //       <div className="flex space-x-4 text-center">
-      //         <button onClick={() => handleEditClick(row.original)}>
-      //           <MdEdit />
-      //         </button>
-      //         <button onClick={() => handleDeleteClick(row.original)}>
-      //           <MdDelete />
-      //         </button>
-      //       </div>
-      //     );
-      //   },
-      // },
     ],
     []
   );
@@ -117,19 +101,16 @@ export default function TractorsPage() {
 
   useEffect(() => getAndSetTractors(), [getAndSetTractors]);
 
-  console.log("Rendered: tractors-page-v2.js");
   return (
     <>
       {isModalOpen && (
-        <div className="absolute bg-[rgba(0,0,0,0.5)] inset-0 z-10 grid place-items-center">
-          <Form
-            getAndSetTractors={getAndSetTractors}
-            tractorData={tractorData}
-            setTractorData={setTractorData}
-            resetTractorData={resetTractorData}
-            setIsModalOpen={setIsModalOpen}
-          />
-        </div>
+        <ModalForm
+          getAndSetTractors={getAndSetTractors}
+          tractorData={tractorData}
+          setTractorData={setTractorData}
+          resetTractorData={resetTractorData}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
       <div className="h-full flex flex-col">
         {/* Actions */}
