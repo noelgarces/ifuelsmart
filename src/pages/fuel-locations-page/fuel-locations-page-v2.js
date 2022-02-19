@@ -22,9 +22,9 @@ export default function FuelLocationsPage() {
         accessor: "status",
         Cell: ({ value }) =>
           value ? (
-            <span className="p-2 bg-green-100 rounded">Active</span>
+            <span className="p-2 bg-green-100 rounded">Enabled</span>
           ) : (
-            <span className="p-2 bg-red-100 rounded">Inactive</span>
+            <span className="p-2 bg-red-100 rounded">Disabled</span>
           ),
       },
     ],
