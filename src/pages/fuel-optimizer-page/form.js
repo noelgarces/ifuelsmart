@@ -90,7 +90,7 @@ const Form = ({ setFuelPlan }) => {
           type="range"
           placeholder="Enter origin location"
           min="1"
-          max={tractor ? tractor.gal_capacity : "1"}
+          max={tractor ? tractor.tank_capacity : "1"}
           value={tractorFuel}
           onChange={(e) => setTractorFuel(e.target.value)}
           className="block w-full"
