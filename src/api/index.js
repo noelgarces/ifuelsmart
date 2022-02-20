@@ -7,12 +7,6 @@ const apiAxios = axios.create({
   },
 });
 
-// ! Not used anymore
-const getTractors = () =>
-  axios.get(
-    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==&rtype=plist"
-  );
-
 const getFuelPlan = ({ customer, origin, destination, via, tractorFuel, tractorFuelCapacity }) =>
   apiAxios.get("/ifuels", {
     params: {
@@ -52,13 +46,6 @@ const getTractorsTable = (customerId) =>
     { customer: customerId, action: "get" }
   );
 
-//! Not using temp
-const updateTractorStatus = (customer, tractorId, status) =>
-  axios.post(
-    "https://ifuelsmart.azurewebsites.net/api/unitLst?code=NiNlstSwNN9rdLsxl/uhydztkywp0wHRvvIp69LbsjiNIrHxvSKYEA==",
-    { customer, unit: tractorId, status, action: "patch" }
-  );
-
 // creates and updates
 const createTractor = (customer, tractorData) =>
   axios.post(
@@ -81,13 +68,13 @@ const deleteTractor = (customer, id) =>
   );
 
 export {
-  getTractors,
+  // getTractors,
   getFuelPlan,
   sendMessage,
   getFuelLocations,
   getTractorsTable,
   updateFuelLocation,
-  updateTractorStatus,
+  // updateTractorStatus,
   createTractor,
   deleteTractor,
 };
