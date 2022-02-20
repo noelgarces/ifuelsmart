@@ -1,4 +1,5 @@
-import { getTractors } from "api";
+import { useAuth0 } from "@auth0/auth0-react";
+import { getTractorsTable } from "api";
 import { createContext, useState, useEffect, useContext } from "react";
 
 const TractorsContext = createContext();
@@ -10,14 +11,15 @@ const useTractors = () => {
 };
 
 const TractorsProvider = ({ children }) => {
+  const { user } = useAuth0();
   const [tractors, setTractors] = useState([]);
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
     const getTractorsAsync = async () => {
       try {
-        const { data } = await getTractors();
-        setTractors(data.unit_numbers);
+        const { data } = await getTractorsTable(user["https://ifuelsmart.com/company"]);
+        setTractors(data);
       } catch (e) {
         console.log(e);
       } finally {
@@ -25,7 +27,7 @@ const TractorsProvider = ({ children }) => {
       }
     };
     getTractorsAsync();
-  }, []);
+  }, [user]);
 
   return (
     <TractorsContext.Provider value={tractors}>
