@@ -72,7 +72,7 @@ const Form = ({ setFuelPlan }) => {
         ref={tractorSearcherRef}
         onTractorSelect={(tractor) => {
           if (!tractor) {
-            setTractorFuel("1");
+            setTractorFuel("20");
             setTractor(null);
             return;
           }
