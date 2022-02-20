@@ -99,7 +99,9 @@ export default function TractorsPage() {
     }
   }, [user]);
 
-  useEffect(() => getAndSetTractors(), [getAndSetTractors]);
+  useEffect(() => {
+    getAndSetTractors();
+  }, [getAndSetTractors]);
 
   return (
     <>
