@@ -12,7 +12,7 @@ const Form = ({ setFuelPlan }) => {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
   const [waypoints, setWaypoints] = useState([]);
-  const [tractorFuel, setTractorFuel] = useState("1");
+  const [tractorFuel, setTractorFuel] = useState("20");
   const [tractor, setTractor] = useState(null);
 
   // Ref to reset child component state
@@ -61,8 +61,6 @@ const Form = ({ setFuelPlan }) => {
     tractorSearcherRef.current.resetTractorSearcherState();
   };
 
-  console.log(tractor);
-
   return (
     <form
       className="px-5 py-5 flex flex-col h-full flex-shrink-0 overflow-y-auto"
@@ -89,8 +87,9 @@ const Form = ({ setFuelPlan }) => {
         <input
           type="range"
           placeholder="Enter origin location"
-          min="1"
-          max={tractor ? tractor.tank_capacity : "1"}
+          min="20"
+          max={tractor ? tractor.tank_capacity : "20"}
+          step="20"
           value={tractorFuel}
           onChange={(e) => setTractorFuel(e.target.value)}
           className="block w-full"
