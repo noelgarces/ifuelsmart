@@ -13,14 +13,11 @@ export default function Form({ getAndSetTractors, tractorData, setTractorData, r
     try {
       setIsLoading(true);
       await api.createTractor(user["https://ifuelsmart.com/company"], tractorData);
-      setIsModalOpen(false);
-
-      // called here because it updates state from parent component
-      resetTractorData();
       await getAndSetTractors();
+      resetTractorData();
+      setIsModalOpen(false);
     } catch (error) {
       console.log(error);
-    } finally {
       setIsLoading(false);
     }
   }
